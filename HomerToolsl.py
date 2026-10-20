@@ -1,4 +1,4 @@
-# language: Python 3.11, file: HomerTools.py, target: Windows / Linux / macOS
+
 # ============================================================
 #                    HomerTools.py
 #                    by w0k00

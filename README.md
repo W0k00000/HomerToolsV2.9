@@ -28,7 +28,7 @@
   <pre>sudo apt install git -y</pre>
   
   <li>Clone the repository:</li>
-  <pre>git clone https://github.com/W0k00000/HomerTools.git</pre>
+  <pre>git clone https://github.com/W0k00000/HomerToolsV2.9.git</pre>
 
   <li>Enter the project folder:</li>
   <pre>cd HomerTools</pre>

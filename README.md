@@ -42,3 +42,11 @@
   - Linux:
   <pre>python3 HomerTools.py</pre>
 </ol
+
+<ul>
+  <li>Developed by: <b>w0k00 & BaseDF </b></li>
+  <li>Contributor : <b>BaseDF -> Hiroshima  </b></li>
+  <li>GitHub: <a Ceci est une amélioration faite par moi du mytools.py de BaseDF, merci.</a></li>
+  <li>License: <b>MIT License</b></li>
+  <li>Version: <b>v2.9 Beta</b></li>
+</ul>

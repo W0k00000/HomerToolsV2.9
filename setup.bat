@@ -6,9 +6,6 @@ echo.
 echo Setup du HomerTools
 echo.
 
-REM ============================================================
-REM  ETAPE 1 - Verification de Python
-REM ============================================================
 
 where python >nul 2>&1
 if errorlevel 1 (
@@ -27,9 +24,6 @@ if errorlevel 1 (
 for /f "tokens=2" %%i in ('python --version 2^>^&1') do set PYVER=%%i
 echo [+] Python %PYVER% detecte.
 
-REM ============================================================
-REM  ETAPE 2 - Verification du fichier HomerTools.py
-REM ============================================================
 
 if not exist "HomerTools.py" (
     echo.
@@ -41,9 +35,6 @@ if not exist "HomerTools.py" (
 )
 echo [+] HomerTools.py trouvé.
 
-REM ============================================================
-REM  ETAPE 3 - Mise a jour de pip
-REM ============================================================
 
 echo.
 echo [*] Mise a jour de pip...
@@ -52,9 +43,6 @@ if errorlevel 1 (
     echo [!] Echec mise a jour pip. On continue quand meme.
 )
 
-REM ============================================================
-REM  ETAPE 4 - Installation des dependances obligatoires
-REM ============================================================
 
 echo.
 echo [*] Installation des dependances obligatoires...
@@ -72,9 +60,6 @@ if errorlevel 1 (
 )
 echo [+] Dependances obligatoires installees.
 
-REM ============================================================
-REM  ETAPE 5 - Installation des dependances optionnelles
-REM ============================================================
 
 echo.
 echo [*] Installation des dependances optionnelles...
@@ -84,9 +69,6 @@ echo.
 python -m pip install --upgrade selenium mss pynput opencv-python sounddevice scipy pywin32 pycryptodome bcrypt curl_cffi
 echo [+] Instalation Terminée
 
-REM ============================================================
-REM  ETAPE 6 - Verif des imports
-REM ============================================================
 
 echo.
 echo [*] Verification des imports 
@@ -110,9 +92,6 @@ if errorlevel 1 (
     echo [+] Instalation optionelle terminée
 )
 
-REM ============================================================
-REM  ETAPE 7 - Resultat final
-REM ============================================================
 
 echo.
 

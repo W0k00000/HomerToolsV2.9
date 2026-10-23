@@ -1,9 +1,3 @@
-
-# ============================================================
-#                    HomerTools.py
-#                    by w0k00
-# ============================================================
-
 import os
 import sys
 import ctypes
@@ -63,7 +57,6 @@ from datetime import datetime
 from pathlib import Path
 from easyjson import core
 
-
 try:
     import requests
 except ImportError:
@@ -85,12 +78,11 @@ try:
 except ImportError:
     pyautogui = None
 
-
 RESET = "\033[0m"
 BLUE_DARK = "\033[38;2;150;60;170m"     
 BLUE = "\033[38;2;185;100;210m"         
 BLUE_LIGHT = "\033[38;2;215;150;235m"   
-CYAN = "\033[38;2;235;190;245m"        
+CYAN = "\033[38;2;235;190;245m"         
 MAGENTA = "\033[38;2;255;0;255m"
 WHITE = "\033[97m"
 GRAY = "\033[38;2;170;130;180m"         
@@ -140,250 +132,36 @@ def clear():
 def pause():
     input(f"\n{GRAY}  Appuie sur ENTREE pour revenir au menu...{RESET}")
 
-
-def slow_print(text, delay=0.02):
-    for char in text:
-        print(char, end="", flush=True)
-        time.sleep(delay)
+def afficher_animation(texte) -> None:
+    for caractere in texte:
+        print(caractere, end="", flush=True)
+        time.sleep(0.002)
     print()
 
+os.system("color 0D")
 
-def set_title():
-    if os.name == "nt":
-        os.system("title HomerTools - by w0k00")
+def menu() -> None:
+    afficher_animation("""
+        ██╗  ██╗ ██████╗ ███╗   ███╗███████╗██████╗     ████████╗ ██████╗  ██████╗ ██╗     ███████╗
+        ██║  ██║██╔═══██╗████╗ ████║██╔════╝██╔══██╗    ╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝
+        ███████║██║   ██║██╔████╔██║█████╗  ██████╔╝       ██║   ██║   ██║██║   ██║██║     ███████╗
+        ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  ██╔══██╗       ██║   ██║   ██║██║   ██║██║     ╚════██║
+        ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║
+        ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+                                            
+                                                 BY W0K00  
 
-
-def _safe_workdir():
-    base = os.path.join(tempfile.gettempdir(), "HomerTools_build")
-    os.makedirs(base, exist_ok=True)
-    return base
-
-
-def _safe_tmp(name):
-    return os.path.join(_safe_workdir(), name)
-
-
-def _safe_dist():
-    out = os.path.join(_safe_workdir(), "dist")
-    os.makedirs(out, exist_ok=True)
-    return out
-
-
-def _safe_cwd():
-    return _safe_workdir()
-
-
-
-
-BANNER_ART_UNICODE = [
-    r" ██╗  ██╗ ██████╗ ███╗   ███╗███████╗██████╗     ████████╗ ██████╗  ██████╗ ██╗     ███████╗",
-    r" ██║  ██║██╔═══██╗████╗ ████║██╔════╝██╔══██╗    ╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝",
-    r" ███████║██║   ██║██╔████╔██║█████╗  ██████╔╝       ██║   ██║   ██║██║   ██║██║     ███████╗",
-    r" ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  ██╔══██╗       ██║   ██║   ██║██║   ██║██║     ╚════██║",
-    r" ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║       ██║   ╚██████╔╝╚██████╔╝███████╗███████║",
-    r" ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝       ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝",
-
-]
-
-BANNER_ART_ASCII = [
-    r"  __  __  __   __  _____  ____   ____  _      ",
-    r" |  \/  | \ \ / / |_   _|/ __ \ / __ \| |     ",
-    r" | |\/| |  \ V /    | | | |  | | |  | | |     ",
-    r" | |  | |   | |     | | | |__| | |__| | |____ ",
-    r" |_|  |_|   |_|     |_|  \____/ \____/|______|",
-]
-
-SUBTITLE = "HomerTools"
-TAGLINE = "by w0k00"
-
-
-def _supports_unicode():
-    enc = (getattr(sys.stdout, "encoding", "") or "").lower().replace("-", "")
-    if enc not in ("utf8", "utf8mb4", "cp65001"):
-        return False
-    if os.name == "nt":
-        try:
-            return ctypes.windll.kernel32.GetConsoleOutputCP() == 65001
-        except Exception:
-            return False
-    return True
-
-
-def banner():
-    art = BANNER_ART_UNICODE if _supports_unicode() else BANNER_ART_ASCII
-    width = max(78, term_width())
-    inner = width - 4
-
-    print(f"{BLUE_DARK}  +" + "-" * inner + f"+{RESET}")
-    for line in art:
-        visible = len(line)
-        pad = max(0, (inner - visible) // 2)
-        right = max(0, inner - pad - visible)
-        colored = gradient_text(line, (95, 45, 150), (205, 145, 235))
-        print(f"{BLUE_DARK}  |{RESET}" + " " * pad + f"{BOLD}{colored}{RESET}" + " " * right + f"{BLUE_DARK}|{RESET}")
-
-    print(f"{BLUE_DARK}  |{RESET}" + f"{GRAY}{'.' * inner}{RESET}" + f"{BLUE_DARK}|{RESET}")
-
-    sub = SUBTITLE
-    pad = max(0, (inner - len(sub)) // 2)
-    right = max(0, inner - pad - len(sub))
-    sub_colored = gradient_text(sub, (205, 145, 235), (95, 45, 150))
-    print(f"{BLUE_DARK}  |{RESET}" + " " * pad + f"{BOLD}{WHITE}{sub_colored}{RESET}" + " " * right + f"{BLUE_DARK}|{RESET}")
-
-    tag = TAGLINE
-    pad = max(0, (inner - len(tag)) // 2)
-    right = max(0, inner - pad - len(tag))
-    print(f"{BLUE_DARK}  |{RESET}" + " " * pad + f"{GRAY}{tag}{RESET}" + " " * right + f"{BLUE_DARK}|{RESET}")
-
-    print(f"{BLUE_DARK}  +" + "-" * inner + f"+{RESET}")
-
-
-
-def type_line(text, delay=0.015, color=""):
-    sys.stdout.write(color)
-    for ch in text:
-        sys.stdout.write(ch)
-        sys.stdout.flush()
-        time.sleep(delay)
-    sys.stdout.write(RESET + "\n")
-    sys.stdout.flush()
-
-
-def spinner(text, duration=1.4, frames=None):
-    if frames is None:
-        frames = ["|", "/", "-", "\\"]
-    end = time.time() + duration
-    i = 0
-    sys.stdout.write(f"{GRAY}  ")
-    while time.time() < end:
-        sys.stdout.write(f"\r{GRAY}  {frames[i % len(frames)]} {text}{RESET}")
-        sys.stdout.flush()
-        i += 1
-        time.sleep(0.08)
-    sys.stdout.write(f"\r{GREEN}  + {text}{RESET}\n")
-    sys.stdout.flush()
-
-
-def progress_bar(text, duration=1.5, length=40):
-    width = term_width()
-    bar_pad = max(0, (width - length - 12) // 2)
-    steps = length
-    i = 0
-    while i <= steps:
-        ratio = i / steps
-        filled = "=" * i
-        empty = " " * (steps - i)
-        pct = int(ratio * 100)
-        line = f"  [{BLUE_LIGHT}{filled}{GRAY}{empty}{RESET}] {WHITE}{pct:3d}%{RESET}"
-        sys.stdout.write("\r" + " " * bar_pad + line)
-        sys.stdout.flush()
-        time.sleep(duration / steps)
-        i += 1
-    sys.stdout.write("\n")
-    sys.stdout.flush()
-
-
-def loading():
-    clear()
-    banner()
-    print()
-
-    checks = [
-        "HomerTools est destiné à des fins éducatives et de test uniquement.",
-        "Toute utilisation malveillante est interdite et peut être illégale.",
-        "Connexion au reseau",
-        "Demarrage de l'interface",
-        "HomerTools V2   by w0k00",
-        "Amuse toi bien ma biche ",
-    ]
-
-    for label in checks:
-        spinner(label, duration=0.6)
-
-    print()
-    progress_bar("Chargement de HomerTools V2", duration=1.4, length=44)
-    print()
-    type_line("  >> READY  <<", 0.02, CYAN + BOLD)
-    time.sleep(0.6)
-    clear()
-
-
-MENU_LEFT = [
-    ("01",  "[Ddos Url]"),
-    ("02",  "[Username Tracker]"),
-    ("03",  "[Dox Identity Lookup ]"),
-    ("04",  "[Phone Info Lookup]"),
-    ("05",  "[Breach Email Lookup]"),
-    ("06",  "[Dox creator ]"),
-    ("07",  "[Email Lookup]"),
-]
-
-MENU_MID = [
-    ("08", "[Token Grabber Discord]"),
-    ("09", "[Password Stealer]"),
-    ("10", "[IP Grabber]"),
-    ("11", "[Anti Virus Disable]"),
-    ("12", "[RAT Builder]"),
-    ("13", "[Roblox Cookie Grabber]"),
-    ("14", "[Key Logger]"),
-]
-
-MENU_RIGHT = [
-    ("15", "[Password Générator]"),
-    ("16", "[IP Lookup]"),
-    ("17", "[Proxy Scrapper]"),
-    ("18", "[Discord Token Login]"),
-    ("19", "[Hash Password Cracker]"),
-    ("20", "[Web Vulnerability Scanner]"),
-    ("00", "[Exit Tool]"),
-]
-
-
-def _type_menu_line(text, delay=4, color=None):
-    if color is None:
-        colored = gradient_text(text, (95, 45, 150), (205, 145, 235))
-    else:
-        colored = color + text + RESET
-    sys.stdout.write(colored + "\n")
-    sys.stdout.flush()
-    time.sleep(delay)
-
-
-def _menu_row(c1, c2, c3):
-    left = f" ({c1[0]:>2}) {c1[1]:<24}" if c1 else " " * 29
-    mid = f" ({c2[0]:>2}) {c2[1]:<24}" if c2 else " " * 29
-    right = f" ({c3[0]:>2}) {c3[1]:<24}" if c3 else " " * 29
-    return f"  {left}  {mid}  {right}"
-
-
-def page_1():
-    clear()
-    banner()
-    print()
-
-    head_left = "      OSINT / CSINT "
-    head_mid = "        MALWARE "
-    head_right = "  UTILITAIRES / SCANS "
-
-    header = (
-        f"  {WHITE}{BOLD}{head_left:<29}{RESET}"
-        f"  {WHITE}{BOLD}{head_mid:<29}{RESET}"
-        f"  {WHITE}{BOLD}{head_right:<29}{RESET}"
-    )
-    print(header)
-    print(f"  {GRAY}{'-' * 27}{RESET}   {GRAY}{'-' * 27}{RESET}   {GRAY}{'-' * 27}{RESET}")
-    print()
-
-    max_rows = max(len(MENU_LEFT), len(MENU_MID), len(MENU_RIGHT))
-    for i in range(max_rows):
-        c1 = MENU_LEFT[i] if i < len(MENU_LEFT) else None
-        c2 = MENU_MID[i] if i < len(MENU_MID) else None
-        c3 = MENU_RIGHT[i] if i < len(MENU_RIGHT) else None
-        row = _menu_row(c1, c2, c3)
-        _type_menu_line(row, delay=0.006)
-        time.sleep(0.02)
-
-    print()
+        
+             OSINT / CSINT                     MALWARE / STEALER                        UTILITAIRES        
+        
+        01. [ DDOS url ]                    08. [ Token Grabber ]               15. [ Password Générator ]
+        02. [ Username Tracker]             09. [ Password Stealer ]            16. [ IP Lookup ]
+        03. [ Dox Identity Lookup]          10. [ IP Grabber ]                  17. [ Proxy Scrapper ]
+        04. [ Phone Info Lookup]            11. [ Anti Virus Disable ]          18. [ Discord Token Login ]
+        05. [ Breach Email Lookup]          12. [ RAT Builder ]                 19. [ Hash Password Cracker ]
+        06. [ Dox creator ]                 13. [ Roblox Cookie Grab ]          20. [ Web Vulnerability Scanner ]
+        07. [ Email Lookup ]                14. [ Key Logger ]                  00. [ Exit Tool ]                                                                                                                                                                                                                                                    
+                                                            """)
     print(f"  {GRAY}tape le numero que tu veux : {RESET}")
     print()
 
@@ -435,7 +213,6 @@ def _ask(label):
 
 def option_1():
     clear()
-    banner()
     if not _need_requests() or aiohttp is None:
         if aiohttp is None:
             print(f"{RED}[!] Module 'aiohttp' manquant. pip install aiohttp{RESET}")
@@ -697,7 +474,6 @@ def option_1():
 
 def option_2():
     clear()
-    banner()
     if not _need_requests():
         pause()
         return
@@ -906,7 +682,6 @@ def option_2():
 
 def option_3() -> str:
     clear()
-    banner()
     if not _need_requests():
         pause()
         return
@@ -944,7 +719,6 @@ def option_3() -> str:
 
 def option_4():
     clear()
-    banner()
     if not _need_phonenumbers() or not _need_requests():
         pause()
         return
@@ -1167,7 +941,6 @@ def option_4():
 
 def option_5():
     clear()
-    banner()
     if not _need_requests():
         pause()
         return
@@ -1267,7 +1040,6 @@ def option_5():
 
 def option_6():
     clear()
-    banner()
     if not _need_requests():
         pause()
         return
@@ -1699,7 +1471,6 @@ Manual fields      : {len(profile['manual'])}
 
 def option_7():
     clear()
-    banner()
     if not _need_requests():
         pause()
         return
@@ -1952,7 +1723,6 @@ def option_7():
 
 def option_8():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ DISCORD TOKEN GRABBER BUILDER ]{RESET}\n")
     webhook = input(f"{YELLOW}[?]{RESET} Webhook URL -> ").strip()
@@ -2234,7 +2004,6 @@ if __name__ == "__main__":
 
 def option_9():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ PASSWORD STEALER BUILDER ]{RESET}\n")
     webhook = input(f"{YELLOW}[?]{RESET} Webhook URL -> ").strip()
@@ -2681,7 +2450,6 @@ if __name__ == "__main__":
 
 def option_10():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ IP GRABBER BUILDER ]{RESET}\n")
     webhook = input(f"{YELLOW}[?]{RESET} Webhook URL -> ").strip()
@@ -2999,7 +2767,6 @@ if __name__ == "__main__":
 
 def option_11():
     clear()
-    banner()
 
     AVS = {
         "1":  ("Windows Defender", "defender"),
@@ -3341,7 +3108,6 @@ if __name__ == "__main__":
 
 def option_12():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ RAT BUILDER — Discord backend ]{RESET}\n")
     webhook = input(f"{YELLOW}[?]{RESET} Webhook URL (reception) -> ").strip()
@@ -3799,7 +3565,6 @@ if __name__ == "__main__":
 
 def option_13():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ ROBLOX COOKIE GRABBER BUILDER ]{RESET}\n")
     webhook = input(f"{YELLOW}[?]{RESET} Webhook URL -> ").strip()
@@ -4054,7 +3819,6 @@ if __name__ == "__main__":
 
 def option_14():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ KEYLOGGER BUILDER ]{RESET}\n")
     webhook = input(f"{YELLOW}[?]{RESET} Webhook URL -> ").strip()
@@ -4437,7 +4201,6 @@ if __name__ == "__main__":
 
 def option_15():
     clear()
-    banner()
 
     print(f"\n{CYAN}   [ PASSWORD GENERATOR ]{RESET}\n")
     try:
@@ -4822,7 +4585,7 @@ def option_16():
 
 def option_17():
     clear()
-    banner()
+
     if not _need_requests():
         pause()
         return
@@ -5102,7 +4865,6 @@ def option_17():
 
 def option_18():
     clear()
-    banner()
 
     try:
         from selenium import webdriver
@@ -5290,7 +5052,6 @@ def option_18():
 
 def option_19():
     clear()
-    banner()
 
     def _h(name):
         def f(s):
@@ -5374,7 +5135,7 @@ def option_19():
 
     while True:
         clear()
-        banner()
+
         print(f"\n{CYAN}   [ HASH CRACKER ]{RESET}\n")
         print("  1. Identifier un hash")
         print("  2. Casser un hash (wordlist)")
@@ -5522,7 +5283,7 @@ def option_19():
 
 def option_20():
     clear()
-    banner()
+
     if not _need_requests():
         pause()
         return
@@ -5870,14 +5631,10 @@ def option_20():
 
     pause()
 
-
-
 def main():
-    set_title()
-    loading()
 
     while True:
-        page = page_1()
+        page = menu()
         if page == 0:
             clear()
             print()

@@ -46,10 +46,10 @@ if errorlevel 1 (
 
 echo.
 echo [*] Installation des dependances obligatoires...
-echo     (requests, aiohttp, phonenumbers, pyautogui, pyperclip)
+echo     (requests, aiohttp, phonenumbers, pyautogui, pyperclip, easyjson )
 echo.
 
-python -m pip install --upgrade requests aiohttp phonenumbers pyautogui pyperclip
+python -m pip install --upgrade requests aiohttp phonenumbers pyautogui pyperclip easyjson
 if errorlevel 1 (
     echo.
     echo [!] Une ou plusieurs dependances ont echoue.

@@ -57,3 +57,8 @@ if errorlevel 1 (
 ) else (
     echo [+] Instalation optionelle terminée
 )
+
+echo Si tu veux lancer HomerTools.py appuie sur 1
+
+if /I "%input%" EQU "1" python HomerTools.py
+set /p "input=.%BS%         >

@@ -3,40 +3,6 @@ title HomerTools - Setup
 color 0D
 
 echo.
-echo Setup du HomerTools
-echo.
-
-
-where python >nul 2>&1
-if errorlevel 1 (
-    echo.
-    echo [!] Python introuvable dans le PATH.
-    echo.
-    echo     Installe Python 3.11+ depuis :
-    echo     https://www.python.org/downloads/
-    echo.
-    echo     IMPORTANT : coche "Add Python to PATH" pendant l'installation.
-    echo.
-    pause
-    exit /b 1
-)
-
-for /f "tokens=2" %%i in ('python --version 2^>^&1') do set PYVER=%%i
-echo [+] Python %PYVER% detecte.
-
-
-if not exist "HomerTools.py" (
-    echo.
-    echo [!] HomerTools.py introuvable dans le dossier courant.
-    echo     Mets setup.bat dans le meme dossier que HomerTools.py.
-    echo.
-    pause
-    exit /b 1
-)
-echo [+] HomerTools.py trouvé.
-
-
-echo.
 echo [*] Mise a jour de pip...
 python -m pip install --upgrade pip --quiet
 if errorlevel 1 (
@@ -91,25 +57,3 @@ if errorlevel 1 (
 ) else (
     echo [+] Instalation optionelle terminée
 )
-
-
-echo.
-
-echo    LANCEMENT DU TOOLS 
-echo.
-echo   Marque ceçi pour lancer le tools : 
-echo.
-echo     python HomerTools.py
-echo.
-echo ______________________________________________
-echo.
-
-call :start
-
-:start 
-for /f %%A in ('"prompt $H &echo on &for %%B in (1) do rem"') do set BS=%%A
-
-echo Si tu veux lancer HomerTools.py appuie sur 1
-
-if /I "%input%" EQU "1" python HomerTools.py
-set /p "input=.%BS%         >
